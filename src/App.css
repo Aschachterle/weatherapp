@@ -1,10 +1,20 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.weather__cards {
+  display: flex;
 }
 
 @media (prefers-reduced-motion: no-preference) {

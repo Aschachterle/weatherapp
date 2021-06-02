@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import './Weather.css'
+const moment = require('moment') 
 
 
 
-const Weather = () => {
+const Weather = (props) => {
+    let time = moment.unix(props.weatherdata.daily[props.index].dt).format('dddd').slice(0,3)
+    let maxTemp = props.weatherdata.daily[props.index].temp.max
+    let minTemp = props.weatherdata.daily[props.index].temp.min
+    let sky = props.weatherdata.daily[props.index].weather[0].main
 
-    const [loaded, setLoaded] = useState(false);
-    const [weatherdata, setWeatherdata] = useState(null)
-
-    useEffect(async () => {
-    const url = 'https://api.openweathermap.org/data/2.5/onecall?lat=42.5559119&lon=-83.0693446&exclude=current,minutely,alerts&units=imperial&appid=4674ad2852ae817aa25435c591292996'
-    const response = await fetch(url)
-    const data = await response.json()
-    setWeatherdata(data)
-    setLoaded(true)
-    console.log(data)
-    }, [])
-
+    let icon = props.weatherdata.daily[props.index].weather[0].icon
 
 
     return (
         <>
-          <h1></h1>
-          <div>{loaded || weatherdata == !null ? 
-            <div>
-            <div>The temp is {weatherdata.daily[0].feels_like.day}</div>
+        <div className="weather__info">
+            <div>{time}</div>
+            <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`}></img>
+            <div>High {maxTemp}</div>
+            <div>Low {minTemp}</div>
 
-            </div> : <div>loading</div>}</div>
-          <div></div>
+        </div>
+
+
         </>
       );
 
